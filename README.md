@@ -1,5 +1,5 @@
-# messenger-chrome-app
-A wrapper for Messenger for Chrome
+# Messenger for Chrome
+A wrapper for Messenger using Chrome App
 
 ## Shortcut key
 1. command + N = new conversation
