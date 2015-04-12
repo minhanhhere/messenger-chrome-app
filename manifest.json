@@ -1,0 +1,20 @@
+{
+  "name": "Messenger for Chrome",
+  "description": "A wrapper for Messenger Chrome App.",
+  "version": "0.3",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "webview",
+    "https://www.messenger.com/*",
+    "https://messenger.com/*"
+  ],
+  "icons": {
+    "16": "img/faces-19.png",
+    "128": "img/faces-128.png"
+  }
+}
