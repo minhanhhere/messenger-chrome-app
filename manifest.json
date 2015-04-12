@@ -2,12 +2,15 @@
   "name": "Messenger for Chrome",
   "description": "A wrapper for Messenger Chrome App.",
   "version": "0.3",
+  "default_locale": "en",
   "manifest_version": 2,
+  "homepage_url": "https://github.com/minhanhhere/messenger-chrome-app",
   "app": {
     "background": {
       "scripts": ["background.js"]
     }
   },
+  // "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "permissions": [
     "webview",
     "https://www.messenger.com/*",
