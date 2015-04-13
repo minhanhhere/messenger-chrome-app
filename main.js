@@ -20,11 +20,22 @@
         webview.executeScript({ file: 'inject.js' });
     });
 
+    function contain(parent, child) {
+        return parent.indexOf(child) != -1;
+    }
+
     /* listen to webview console log and trigger some command if needed*/
     webview.addEventListener('consolemessage', function(e) {
         var msg = e.message;
-        var url = msg.replace('chrome_messenger_ask_for_url:', '');
-        window.open(url);
+        if (contain(msg, 'chrome_messenger_ask_for_url:')) {
+            var url = msg.replace('chrome_messenger_ask_for_url:', '');
+            window.open(url);
+        } else if (contain(msg, 'chrome_messenger_ask_for_permission:')) {
+            var permission = msg.replace('chrome_messenger_ask_for_permission:', '');
+            if (permission == 'granted' || permission == 'denied') {
+                //ask for permission here
+            }
+        }
     });
 
     function focusWebview() {
