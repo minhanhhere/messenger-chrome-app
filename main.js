@@ -20,6 +20,13 @@
         webview.executeScript({ file: 'inject.js' });
     });
 
+    /* listen to webview console log and trigger some command if needed*/
+    webview.addEventListener('consolemessage', function(e) {
+        var msg = e.message;
+        var url = msg.replace('chrome_messenger_ask_for_url:', '');
+        window.open(url);
+    });
+
     function focusWebview() {
         webview.focus();
     };

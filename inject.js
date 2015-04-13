@@ -79,4 +79,22 @@ typeof define&&define.amd&&define(function(){return c})})(window,document);
         return false;
     });
     
-})()
+})();
+
+/* request host app to open URL via console log */
+(function(){
+    function doLoop() {
+        setTimeout(function () {
+            var anchors = document.querySelectorAll('a[href^="http"]');
+            for (var i in anchors) {
+                var anchor = anchors[i];
+                anchor.onclick = function() {
+                    var url = this.getAttribute('href');
+                    console.log('chrome_messenger_ask_for_url:' + url);
+                };
+            }
+            doLoop();
+        }, 700);
+    }
+    doLoop();
+})();
