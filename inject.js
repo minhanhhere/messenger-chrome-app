@@ -37,8 +37,7 @@ typeof define&&define.amd&&define(function(){return c})})(window,document);
     }
 
     function keydownHandler(e){
-        
-        if (hasActiveInput()) {
+        if (hasActiveInput() || e.ctrlKey || e.altKey) {
             return;
         }
 
