@@ -15,7 +15,7 @@ typeof define&&define.amd&&define(function(){return c})})(window,document);
 
 /* app business */
 (function() {
-
+    
     var listConversation = document.querySelector('ul');
 
     function setConversationFocus(list, index) {
@@ -52,49 +52,51 @@ typeof define&&define.amd&&define(function(){return c})})(window,document);
             input.focus();
         }
     }
+
+    function toggleInformation(e) {
+        document.querySelector('[data-reactid=".0.1.$1.0.0.$buttonsContainer.3.0"]').click();
+        return false;
+    }
+
+    function createConversation(e) {
+        document.querySelector('[href="/new"]').click();
+        return false;
+    }
     
-    // binding 'command+num' = switch conversation quickly
-    for (var i = 0; i < 9; i++) {
-        bindShortcutKey(i);
-    };
+    function scanLink() {
+        setTimeout(function () {
+            var anchors = document.querySelectorAll('a[href^="http"]');
+            for (var i = 0; i < anchors.length; i++) {
+                var anchor = anchors[i];
+                if (anchor.getAttribute('target') != '_blank') {
+                    continue;
+                }
+                anchor.onclick = function() {
+                    var url = this.getAttribute('href');
+                    var data = JSON.stringify({
+                        cmd: 'open_url',
+                        url: url
+                    })
+                    console.log(data);
+                };
+            }
+            scanLink();
+        }, 700);
+    }
 
     // auto focus chatbox
     document.addEventListener("keydown", keydownHandler, false);
 
-    // binding 'command+i' = see information
-    Mousetrap.bindGlobal('command+i', function(e) {
-        document.querySelector('[data-reactid=".0.1.$1.0.0.$buttonsContainer.3.0"]').click();
-        return false;
-    });
+    // binding 'command+num' = switch conversation quickly
+    for (var i = 0; i < 9; i++) {
+        bindShortcutKey(i);
+    };    
 
-    // binding 'command+n' = settings
-    Mousetrap.bindGlobal('command+n', function(e) {
-        document.querySelector('[href="/new"]').click();
-        return false;
-    });
+    Mousetrap.bindGlobal('command+i', toggleInformation);
+    Mousetrap.bindGlobal('command+n', createConversation);
 
-    // binding 'command+u' = settings
-    Mousetrap.bindGlobal('command+u', function(e) {
-        document.querySelector('[data-reactid=".0.1.$1.0.1.$0.1.0.$1.0.1.0.2.0"]').click();
-        return false;
-    });
-    
-})();
+    (function() {
+        scanLink();
+    })();
 
-/* request host app to open URL via console log */
-(function(){
-    function doLoop() {
-        setTimeout(function () {
-            var anchors = document.querySelectorAll('a[href^="http"]');
-            for (var i in anchors) {
-                var anchor = anchors[i];
-                anchor.onclick = function() {
-                    var url = this.getAttribute('href');
-                    console.log('chrome_messenger_ask_for_url:' + url);
-                };
-            }
-            doLoop();
-        }, 700);
-    }
-    doLoop();
 })();
